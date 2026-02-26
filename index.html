@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -82,7 +82,14 @@
         <script src="data/CaoMonserrat_4.js"></script>
         <script src="data/OtrosUsos_5.js"></script>
         <script src="data/AreaaDesafectar_6.js"></script>
-        <script src="data/Subdivision_390934_7.js"></script>
+        <script src="data/CesinTriangulo_0.js"></script>
+        <script src="data/CesinVa_1.js"></script>
+        <script src="data/CesinEspacioPblico_2.js"></script>
+        <script src="data/CesinProteccinAmbiental_3.js"></script>
+        <script src="data/Etapa1Vivienda_4.js"></script>
+        <script src="data/Etapa2Vivienda_5.js"></script>
+        <script src="data/Etapa3Vivienda_6.js"></script>
+        <script src="data/OtrosUsos_7.js"></script>
         <script src="data/Delgado_8.js"></script>
         <script src="data/Mediano_9.js"></script>
         <script src="data/Grueso_10.js"></script>
@@ -586,11 +593,15 @@
         });
         bounds_group.addLayer(layer_AreaaDesafectar_6);
         map.addLayer(layer_AreaaDesafectar_6);
-        function pop_Subdivision_390934_7(feature, layer) {
+        function pop_CesinTriangulo_0(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Area</th>\
                         <td>' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota</th>\
+                        <td>' + (feature.properties['Nota'] !== null ? autolinker.link(String(feature.properties['Nota']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Uso</th>\
@@ -604,11 +615,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Subdivision_390934_7_0(feature) {
-            switch(String(feature.properties['Uso'])) {
-                case 'Cesión':
-                    return {
-                pane: 'pane_Subdivision_390934_7',
+        function style_CesinTriangulo_0_0() {
+            return {
+                pane: 'pane_CesinTriangulo_0',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -620,10 +629,46 @@
                 fillColor: 'rgba(237,216,132,1.0)',
                 interactive: true,
             }
-                    break;
-                case 'Otros Usos':
-                    return {
-                pane: 'pane_Subdivision_390934_7',
+        }
+        map.createPane('pane_CesinTriangulo_0');
+        map.getPane('pane_CesinTriangulo_0').style.zIndex = 407;
+        map.getPane('pane_CesinTriangulo_0').style['mix-blend-mode'] = 'normal';
+        var layer_CesinTriangulo_0 = new L.geoJson(json_CesinTriangulo_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CesinTriangulo_0',
+            layerName: 'layer_CesinTriangulo_0',
+            pane: 'pane_CesinTriangulo_0',
+            onEachFeature: pop_CesinTriangulo_0,
+            style: style_CesinTriangulo_0_0,
+        });
+        bounds_group.addLayer(layer_CesinTriangulo_0);
+        map.addLayer(layer_CesinTriangulo_0);
+        function pop_CesinVa_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota</th>\
+                        <td>' + (feature.properties['Nota'] !== null ? autolinker.link(String(feature.properties['Nota']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uso</th>\
+                        <td>' + (feature.properties['Uso'] !== null ? autolinker.link(String(feature.properties['Uso']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_CesinVa_1_0() {
+            return {
+                pane: 'pane_CesinVa_1',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -632,13 +677,151 @@
                 weight: 2.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(115,190,103,1.0)',
+                fillColor: 'rgba(237,216,132,1.0)',
                 interactive: true,
             }
-                    break;
-                case 'Vivienda':
-                    return {
-                pane: 'pane_Subdivision_390934_7',
+        }
+        map.createPane('pane_CesinVa_1');
+        map.getPane('pane_CesinVa_1').style.zIndex = 407;
+        map.getPane('pane_CesinVa_1').style['mix-blend-mode'] = 'normal';
+        var layer_CesinVa_1 = new L.geoJson(json_CesinVa_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CesinVa_1',
+            layerName: 'layer_CesinVa_1',
+            pane: 'pane_CesinVa_1',
+            onEachFeature: pop_CesinVa_1,
+            style: style_CesinVa_1_0,
+        });
+        bounds_group.addLayer(layer_CesinVa_1);
+        map.addLayer(layer_CesinVa_1);
+        function pop_CesinEspacioPblico_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota</th>\
+                        <td>' + (feature.properties['Nota'] !== null ? autolinker.link(String(feature.properties['Nota']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uso</th>\
+                        <td>' + (feature.properties['Uso'] !== null ? autolinker.link(String(feature.properties['Uso']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_CesinEspacioPblico_2_0() {
+            return {
+                pane: 'pane_CesinEspacioPblico_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,216,132,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_CesinEspacioPblico_2');
+        map.getPane('pane_CesinEspacioPblico_2').style.zIndex = 407;
+        map.getPane('pane_CesinEspacioPblico_2').style['mix-blend-mode'] = 'normal';
+        var layer_CesinEspacioPblico_2 = new L.geoJson(json_CesinEspacioPblico_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CesinEspacioPblico_2',
+            layerName: 'layer_CesinEspacioPblico_2',
+            pane: 'pane_CesinEspacioPblico_2',
+            onEachFeature: pop_CesinEspacioPblico_2,
+            style: style_CesinEspacioPblico_2_0,
+        });
+        bounds_group.addLayer(layer_CesinEspacioPblico_2);
+        map.addLayer(layer_CesinEspacioPblico_2);
+        function pop_CesinProteccinAmbiental_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota</th>\
+                        <td>' + (feature.properties['Nota'] !== null ? autolinker.link(String(feature.properties['Nota']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uso</th>\
+                        <td>' + (feature.properties['Uso'] !== null ? autolinker.link(String(feature.properties['Uso']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_CesinProteccinAmbiental_3_0() {
+            return {
+                pane: 'pane_CesinProteccinAmbiental_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,216,132,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_CesinProteccinAmbiental_3');
+        map.getPane('pane_CesinProteccinAmbiental_3').style.zIndex = 407;
+        map.getPane('pane_CesinProteccinAmbiental_3').style['mix-blend-mode'] = 'normal';
+        var layer_CesinProteccinAmbiental_3 = new L.geoJson(json_CesinProteccinAmbiental_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CesinProteccinAmbiental_3',
+            layerName: 'layer_CesinProteccinAmbiental_3',
+            pane: 'pane_CesinProteccinAmbiental_3',
+            onEachFeature: pop_CesinProteccinAmbiental_3,
+            style: style_CesinProteccinAmbiental_3_0,
+        });
+        bounds_group.addLayer(layer_CesinProteccinAmbiental_3);
+        map.addLayer(layer_CesinProteccinAmbiental_3);
+        function pop_Etapa1Vivienda_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota</th>\
+                        <td>' + (feature.properties['Nota'] !== null ? autolinker.link(String(feature.properties['Nota']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uso</th>\
+                        <td>' + (feature.properties['Uso'] !== null ? autolinker.link(String(feature.properties['Uso']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Etapa1Vivienda_4_0() {
+            return {
+                pane: 'pane_Etapa1Vivienda_4',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -650,23 +833,174 @@
                 fillColor: 'rgba(79,88,237,1.0)',
                 interactive: true,
             }
-                    break;
-            }
         }
-        map.createPane('pane_Subdivision_390934_7');
-        map.getPane('pane_Subdivision_390934_7').style.zIndex = 407;
-        map.getPane('pane_Subdivision_390934_7').style['mix-blend-mode'] = 'normal';
-        var layer_Subdivision_390934_7 = new L.geoJson(json_Subdivision_390934_7, {
+        map.createPane('pane_Etapa1Vivienda_4');
+        map.getPane('pane_Etapa1Vivienda_4').style.zIndex = 407;
+        map.getPane('pane_Etapa1Vivienda_4').style['mix-blend-mode'] = 'normal';
+        var layer_Etapa1Vivienda_4 = new L.geoJson(json_Etapa1Vivienda_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Subdivision_390934_7',
-            layerName: 'layer_Subdivision_390934_7',
-            pane: 'pane_Subdivision_390934_7',
-            onEachFeature: pop_Subdivision_390934_7,
-            style: style_Subdivision_390934_7_0,
+            dataVar: 'json_Etapa1Vivienda_4',
+            layerName: 'layer_Etapa1Vivienda_4',
+            pane: 'pane_Etapa1Vivienda_4',
+            onEachFeature: pop_Etapa1Vivienda_4,
+            style: style_Etapa1Vivienda_4_0,
         });
-        bounds_group.addLayer(layer_Subdivision_390934_7);
-        map.addLayer(layer_Subdivision_390934_7);
+        bounds_group.addLayer(layer_Etapa1Vivienda_4);
+        map.addLayer(layer_Etapa1Vivienda_4);
+        function pop_Etapa2Vivienda_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota</th>\
+                        <td>' + (feature.properties['Nota'] !== null ? autolinker.link(String(feature.properties['Nota']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uso</th>\
+                        <td>' + (feature.properties['Uso'] !== null ? autolinker.link(String(feature.properties['Uso']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Etapa2Vivienda_5_0() {
+            return {
+                pane: 'pane_Etapa2Vivienda_5',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(79,88,237,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Etapa2Vivienda_5');
+        map.getPane('pane_Etapa2Vivienda_5').style.zIndex = 407;
+        map.getPane('pane_Etapa2Vivienda_5').style['mix-blend-mode'] = 'normal';
+        var layer_Etapa2Vivienda_5 = new L.geoJson(json_Etapa2Vivienda_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Etapa2Vivienda_5',
+            layerName: 'layer_Etapa2Vivienda_5',
+            pane: 'pane_Etapa2Vivienda_5',
+            onEachFeature: pop_Etapa2Vivienda_5,
+            style: style_Etapa2Vivienda_5_0,
+        });
+        bounds_group.addLayer(layer_Etapa2Vivienda_5);
+        map.addLayer(layer_Etapa2Vivienda_5);
+        function pop_Etapa3Vivienda_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota</th>\
+                        <td>' + (feature.properties['Nota'] !== null ? autolinker.link(String(feature.properties['Nota']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uso</th>\
+                        <td>' + (feature.properties['Uso'] !== null ? autolinker.link(String(feature.properties['Uso']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Etapa3Vivienda_6_0() {
+            return {
+                pane: 'pane_Etapa3Vivienda_6',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(79,88,237,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Etapa3Vivienda_6');
+        map.getPane('pane_Etapa3Vivienda_6').style.zIndex = 407;
+        map.getPane('pane_Etapa3Vivienda_6').style['mix-blend-mode'] = 'normal';
+        var layer_Etapa3Vivienda_6 = new L.geoJson(json_Etapa3Vivienda_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Etapa3Vivienda_6',
+            layerName: 'layer_Etapa3Vivienda_6',
+            pane: 'pane_Etapa3Vivienda_6',
+            onEachFeature: pop_Etapa3Vivienda_6,
+            style: style_Etapa3Vivienda_6_0,
+        });
+        bounds_group.addLayer(layer_Etapa3Vivienda_6);
+        map.addLayer(layer_Etapa3Vivienda_6);
+        function pop_OtrosUsos_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nota</th>\
+                        <td>' + (feature.properties['Nota'] !== null ? autolinker.link(String(feature.properties['Nota']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uso</th>\
+                        <td>' + (feature.properties['Uso'] !== null ? autolinker.link(String(feature.properties['Uso']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_OtrosUsos_7_0() {
+            return {
+                pane: 'pane_OtrosUsos_7',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(115,190,103,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_OtrosUsos_7');
+        map.getPane('pane_OtrosUsos_7').style.zIndex = 407;
+        map.getPane('pane_OtrosUsos_7').style['mix-blend-mode'] = 'normal';
+        var layer_OtrosUsos_7 = new L.geoJson(json_OtrosUsos_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_OtrosUsos_7',
+            layerName: 'layer_OtrosUsos_7',
+            pane: 'pane_OtrosUsos_7',
+            onEachFeature: pop_OtrosUsos_7,
+            style: style_OtrosUsos_7_0,
+        });
+        bounds_group.addLayer(layer_OtrosUsos_7);
+        map.addLayer(layer_OtrosUsos_7);
         function pop_Delgado_8(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -907,7 +1241,16 @@
                 {label: '<img src="legend/Mediano_9.png" /> Mediano', layer: layer_Mediano_9},
                 {label: '<img src="legend/Delgado_8.png" /> Delgado', layer: layer_Delgado_8},
             ]},
-            {label: '<img src="legend/Subdivision_390934_7_Vivienda2.png" /> Subdivision 390934', layer: layer_Subdivision_390934_7},
+                        {label: 'Subdivision 390934', selectAllCheckbox: 'Activar/Desactivar todos', children: [
+                {label: '<img src="legend/CesinTriangulo_0.png" /> Cesion triangulo', layer: layer_CesinTriangulo_0},
+                {label: '<img src="legend/CesinVa_1.png" /> Cesion via', layer: layer_CesinVa_1},
+                {label: '<img src="legend/CesinEspacioPblico_2.png" /> Cesion espacio publico', layer: layer_CesinEspacioPblico_2},
+                {label: '<img src="legend/CesinProteccinAmbiental_3.png" /> Cesion proteccion ambiental', layer: layer_CesinProteccinAmbiental_3},
+                {label: '<img src="legend/Etapa1Vivienda_4.png" /> Etapa 1 vivienda', layer: layer_Etapa1Vivienda_4},
+                {label: '<img src="legend/Etapa2Vivienda_5.png" /> Etapa 2 vivienda', layer: layer_Etapa2Vivienda_5},
+                {label: '<img src="legend/Etapa3Vivienda_6.png" /> Etapa 3 vivienda', layer: layer_Etapa3Vivienda_6},
+                {label: '<img src="legend/OtrosUsos_7.png" /> Otros usos', layer: layer_OtrosUsos_7},
+            ]},
             {label: '<img src="legend/AreaaDesafectar_6.png" /> Area a desafectar', layer: layer_AreaaDesafectar_6},
             {label: '<img src="legend/OtrosUsos_5.png" /> Otros usos', layer: layer_OtrosUsos_5},
             {label: '<img src="legend/CaoMonserrat_4.png" /> Cano Monserrat', layer: layer_CaoMonserrat_4},
@@ -972,3 +1315,4 @@
         </script>        
     </body>
 </html>
+
