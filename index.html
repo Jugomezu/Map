@@ -154,6 +154,20 @@
                 popup._contentNode.classList.remove('media');
             }
         }
+        function formatAreaComma(value) {
+            if (value === null || value === undefined || value === '') {
+                return '';
+            }
+            var normalized = String(value).trim();
+            if (/^\d+(\.\d+)?$/.test(normalized)) {
+                if (normalized.indexOf('.') !== -1) {
+                    var parts = normalized.split('.');
+                    return parts[0] + ',' + parts[1].padEnd(3, '0').slice(0, 3);
+                }
+                return normalized + ',000';
+            }
+            return normalized.replace('.', ',');
+        }
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
@@ -428,7 +442,7 @@
                         <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Area'] !== null ? autolinker.link(String(feature.properties['Area']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Area'] !== null ? autolinker.link(formatAreaComma(feature.properties['Area']).replace(/'/g, '\'')) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
