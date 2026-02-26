@@ -154,6 +154,31 @@
                 popup._contentNode.classList.remove('media');
             }
         }
+        function getPopupLayerLabel(popup) {
+            var source = popup && popup._source;
+            if (!source || !source._eventParents) {
+                return '';
+            }
+            var parents = Object.values(source._eventParents);
+            if (!parents.length || !parents[0].options || !parents[0].options.layerName) {
+                return '';
+            }
+            return String(parents[0].options.layerName)
+                .replace(/^layer_/, '')
+                .replace(/_/g, ' ');
+        }
+        function prependLayerNameToPopup(popup) {
+            var layerLabel = getPopupLayerLabel(popup);
+            if (!layerLabel) {
+                return;
+            }
+            var content = popup.getContent();
+            if (typeof content !== 'string' || content.indexOf('popup-layer-name') !== -1) {
+                return;
+            }
+            var header = '<div class="popup-layer-name"><strong>Capa:</strong> ' + layerLabel + '</div>';
+            popup.setContent(header + content);
+        }
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
@@ -891,6 +916,9 @@
             collapsed: false,
         });
         lay.addTo(map);
+        map.on('popupopen', function(e) {
+            prependLayerNameToPopup(e.popup);
+        });
         document.addEventListener("DOMContentLoaded", function() {
             function newLayersListHeight() {
                 var layerScrollbarElement = document.querySelector('.leaflet-control-layers-scrollbar');
