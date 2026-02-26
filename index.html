@@ -165,7 +165,9 @@
             }
             return String(parents[0].options.layerName)
                 .replace(/^layer_/, '')
-                .replace(/_/g, ' ');
+                .replace(/\d$/, '')
+                .replace(/_/g, ' ')
+                .trim();
         }
         function prependLayerNameToPopup(popup) {
             var layerLabel = getPopupLayerLabel(popup);
@@ -299,7 +301,7 @@
                 lineJoin: 'bevel',
                 weight: 1.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_CurvasDeNivel_1');
@@ -307,7 +309,7 @@
         map.getPane('pane_CurvasDeNivel_1').style['mix-blend-mode'] = 'normal';
         var layer_CurvasDeNivel_1 = new L.geoJson(json_CurvasDeNivel_1, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_CurvasDeNivel_1',
             layerName: 'layer_CurvasDeNivel_1',
             pane: 'pane_CurvasDeNivel_1',
@@ -430,7 +432,7 @@
                 lineJoin: 'bevel',
                 weight: 3.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_PrefactibilidadTrazadoAv34_3');
@@ -438,7 +440,7 @@
         map.getPane('pane_PrefactibilidadTrazadoAv34_3').style['mix-blend-mode'] = 'normal';
         var layer_PrefactibilidadTrazadoAv34_3 = new L.geoJson(json_PrefactibilidadTrazadoAv34_3, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_PrefactibilidadTrazadoAv34_3',
             layerName: 'layer_PrefactibilidadTrazadoAv34_3',
             pane: 'pane_PrefactibilidadTrazadoAv34_3',
