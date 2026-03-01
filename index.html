@@ -57,10 +57,95 @@
                 padding: 8px 12px;
             }
         }
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(140deg, #11283b 0%, #1b4863 55%, #2c6b80 100%);
+            padding: 20px;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 14px;
+            padding: 22px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(17, 40, 59, 0.14);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.26);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        }
+        .login-card h1 {
+            margin: 0 0 6px 0;
+            font-size: 24px;
+            color: #102b41;
+        }
+        .login-subtitle {
+            margin: 0 0 14px 0;
+            color: #34556a;
+            font-size: 14px;
+        }
+        .login-card label {
+            display: block;
+            margin-bottom: 6px;
+            color: #1c3d53;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .login-card input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #9ab1bf;
+            font-size: 14px;
+        }
+        .login-card button {
+            width: 100%;
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 12px;
+            color: #ffffff;
+            background: #1f5f86;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .login-card button:hover {
+            background: #184d6d;
+        }
+        #login-error {
+            min-height: 18px;
+            margin-top: 9px;
+            color: #a12c2c;
+            font-size: 13px;
+        }
+        body:not(.authenticated) #map,
+        body:not(.authenticated) #map-title {
+            visibility: hidden;
+        }
+        body.authenticated #login-screen {
+            display: none;
+        }
         </style>
         <title></title>
     </head>
     <body>
+        <div id="login-screen">
+            <form id="login-form" class="login-card">
+                <h1>Ingreso al mapa</h1>
+                <p class="login-subtitle">Acceso restringido</p>
+                <label for="login-user">Usuario</label>
+                <input id="login-user" type="text" autocomplete="username" required>
+                <label for="login-pass">Contrasena</label>
+                <input id="login-pass" type="password" autocomplete="current-password" required>
+                <button type="submit">Entrar</button>
+                <div id="login-error"></div>
+            </form>
+        </div>
         <div id="map-title">Mapa informativo Asomadera</div>
         <div id="map">
         </div>
@@ -94,9 +179,43 @@
         <script src="data/Mediano_9.js"></script>
         <script src="data/Grueso_10.js"></script>
         <script>
+        var AUTH_CONFIG = {
+            username: 'admin',
+            password: 'asomadera2026',
+            sessionKey: 'asomadera_map_authenticated'
+        };
+        var mapAccessGranted = sessionStorage.getItem(AUTH_CONFIG.sessionKey) === '1';
+        function setAuthState(isAuthenticated) {
+            if (isAuthenticated) {
+                document.body.classList.add('authenticated');
+                sessionStorage.setItem(AUTH_CONFIG.sessionKey, '1');
+                if (window._asomaderaMap) {
+                    setTimeout(function() {
+                        window._asomaderaMap.invalidateSize();
+                    }, 50);
+                }
+            } else {
+                document.body.classList.remove('authenticated');
+                sessionStorage.removeItem(AUTH_CONFIG.sessionKey);
+            }
+        }
+        setAuthState(mapAccessGranted);
+        document.getElementById('login-form').addEventListener('submit', function(evt) {
+            evt.preventDefault();
+            var user = document.getElementById('login-user').value.trim();
+            var pass = document.getElementById('login-pass').value;
+            var errorElement = document.getElementById('login-error');
+            if (user === AUTH_CONFIG.username && pass === AUTH_CONFIG.password) {
+                errorElement.textContent = '';
+                setAuthState(true);
+                return;
+            }
+            errorElement.textContent = 'Usuario o contrasena incorrectos.';
+        });
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
         }).fitBounds([[6.212996035488164,-75.56921613129772],[6.2232927894888395,-75.55602542369951]]);
+        window._asomaderaMap = map;
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
