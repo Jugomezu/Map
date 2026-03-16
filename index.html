@@ -131,6 +131,30 @@
             transform: rotate(-65deg);
             transform-origin: left center;
         }
+        #page-logo {
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            z-index: 1200;
+            padding: 8px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.78);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(4px);
+        }
+        #page-logo-label {
+            margin: 0 0 6px 2px;
+            color: rgba(17, 40, 59, 0.85);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+        #page-logo img {
+            display: block;
+            width: 140px;
+            height: auto;
+        }
         #login-error {
             min-height: 18px;
             margin-top: 9px;
@@ -138,7 +162,8 @@
             font-size: 13px;
         }
         body:not(.authenticated) #map,
-        body:not(.authenticated) #map-title {
+        body:not(.authenticated) #map-title,
+        body:not(.authenticated) #page-logo {
             visibility: hidden;
         }
         body.authenticated #login-screen {
@@ -161,6 +186,10 @@
             </form>
         </div>
         <div id="map-title">Mapa informativo Asomadera</div>
+        <div id="page-logo">
+            <div id="page-logo-label">Solicitado por:</div>
+            <img src="images/optimizacion-predios-sas.png" alt="Optimizacion de predios SAS">
+        </div>
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
