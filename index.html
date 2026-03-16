@@ -131,16 +131,58 @@
             transform: rotate(-65deg);
             transform-origin: left center;
         }
-        #page-logo {
+        #page-card-stack {
             position: absolute;
             left: 18px;
             bottom: 18px;
             z-index: 1200;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 156px;
+        }
+        #page-logo {
+            box-sizing: border-box;
+            width: 100%;
             padding: 8px;
             border-radius: 14px;
             background: rgba(255, 255, 255, 0.78);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
             backdrop-filter: blur(4px);
+        }
+        #page-credit-box {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 0;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.82);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(4px);
+            overflow: hidden;
+        }
+        #page-credit-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 12px;
+            border: 0;
+            background: transparent;
+            color: rgba(17, 40, 59, 0.92);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            text-align: left;
+        }
+        #page-credit-toggle:after {
+            content: "+";
+            font-size: 16px;
+            line-height: 1;
+        }
+        #page-credit-box.is-open #page-credit-toggle:after {
+            content: "-";
         }
         #page-logo-label {
             margin: 0 0 6px 2px;
@@ -149,6 +191,18 @@
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.2px;
+        }
+        #page-credit-text {
+            display: none;
+            margin: 0;
+            padding: 0 12px 12px 12px;
+            color: rgba(17, 40, 59, 0.85);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            font-size: 11px;
+            line-height: 1.35;
+        }
+        #page-credit-box.is-open #page-credit-text {
+            display: block;
         }
         #page-logo img {
             display: block;
@@ -163,7 +217,7 @@
         }
         body:not(.authenticated) #map,
         body:not(.authenticated) #map-title,
-        body:not(.authenticated) #page-logo {
+        body:not(.authenticated) #page-card-stack {
             visibility: hidden;
         }
         body.authenticated #login-screen {
@@ -186,9 +240,15 @@
             </form>
         </div>
         <div id="map-title">Mapa informativo Asomadera</div>
-        <div id="page-logo">
-            <div id="page-logo-label">Solicitado por:</div>
-            <img src="images/optimizacion-predios-sas.png" alt="Optimizacion de predios SAS">
+        <div id="page-card-stack">
+            <div id="page-credit-box">
+                <button id="page-credit-toggle" type="button">Información de autoría</button>
+                <div id="page-credit-text">Geoprocesamiento y visualizaciones:<br>Juan P. Gomez<br>jugomezuri@gmail.com<br><br>Vuelos, fotogrametria y topografia por dron:<br>Ing. David E. Giraldo.<br>dronfly.dg@gmail.com</div>
+            </div>
+            <div id="page-logo">
+                <div id="page-logo-label">Solicitado por:</div>
+                <img src="images/optimizacion-predios-sas.png" alt="Optimizacion de predios SAS">
+            </div>
         </div>
         <div id="map">
         </div>
@@ -1829,6 +1889,13 @@
             prependLayerNameToPopup(e.popup);
         });
         document.addEventListener("DOMContentLoaded", function() {
+            var creditBoxElement = document.getElementById('page-credit-box');
+            var creditToggleElement = document.getElementById('page-credit-toggle');
+            if (creditBoxElement && creditToggleElement) {
+                creditToggleElement.addEventListener('click', function() {
+                    creditBoxElement.classList.toggle('is-open');
+                });
+            }
             function newLayersListHeight() {
                 var layerScrollbarElement = document.querySelector('.leaflet-control-layers-scrollbar');
                 if (layerScrollbarElement) {
