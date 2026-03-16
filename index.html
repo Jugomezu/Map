@@ -117,6 +117,20 @@
         .login-card button:hover {
             background: #184d6d;
         }
+        .layout-grid-label {
+            color: rgba(22, 39, 56, 0.9);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95);
+        }
+        .layout-grid-label-bottom {
+            display: inline-block;
+            transform: rotate(-65deg);
+            transform-origin: left center;
+        }
         #login-error {
             min-height: 18px;
             margin-top: 9px;
@@ -327,6 +341,102 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
+        function getGridStep(zoom) {
+            if (zoom >= 20) {
+                return 0.0008;
+            }
+            if (zoom >= 18) {
+                return 0.002;
+            }
+            if (zoom >= 16) {
+                return 0.004;
+            }
+            if (zoom >= 14) {
+                return 0.008;
+            }
+            return 0.016;
+        }
+        function formatGridCoordinate(value) {
+            return value.toFixed(5);
+        }
+        map.createPane('pane_LayoutGrid');
+        map.getPane('pane_LayoutGrid').style.zIndex = 650;
+        map.getPane('pane_LayoutGrid').style.pointerEvents = 'none';
+        map.createPane('pane_LayoutGridLabels');
+        map.getPane('pane_LayoutGridLabels').style.zIndex = 651;
+        map.getPane('pane_LayoutGridLabels').style.pointerEvents = 'none';
+        var layoutGridLayer = L.layerGroup();
+        function redrawLayoutGrid() {
+            if (!map.hasLayer(layoutGridLayer)) {
+                return;
+            }
+            layoutGridLayer.clearLayers();
+            var bounds = map.getBounds();
+            var zoom = map.getZoom();
+            var step = getGridStep(zoom);
+            var south = Math.floor(bounds.getSouth() / step) * step;
+            var north = Math.ceil(bounds.getNorth() / step) * step;
+            var west = Math.floor(bounds.getWest() / step) * step;
+            var east = Math.ceil(bounds.getEast() / step) * step;
+            var labelLat = bounds.getSouth() + ((bounds.getNorth() - bounds.getSouth()) * 0.025);
+            var labelLng = bounds.getWest() + ((bounds.getEast() - bounds.getWest()) * 0.008);
+            var lat;
+            var lng;
+            for (lng = west; lng <= east + (step / 2); lng += step) {
+                layoutGridLayer.addLayer(L.polyline(
+                    [[south, lng], [north, lng]],
+                    {
+                        pane: 'pane_LayoutGrid',
+                        color: 'rgba(28,44,59,0.32)',
+                        weight: 1,
+                        opacity: 1,
+                        dashArray: '4,4',
+                        interactive: false
+                    }
+                ));
+                layoutGridLayer.addLayer(L.marker(
+                    [labelLat, lng],
+                    {
+                        pane: 'pane_LayoutGridLabels',
+                        interactive: false,
+                        icon: L.divIcon({
+                            className: '',
+                            html: '<span class="layout-grid-label layout-grid-label-bottom">' + formatGridCoordinate(lng) + '</span>',
+                            iconSize: [52, 18],
+                            iconAnchor: [8, 9]
+                        })
+                    }
+                ));
+            }
+            for (lat = south; lat <= north + (step / 2); lat += step) {
+                layoutGridLayer.addLayer(L.polyline(
+                    [[lat, west], [lat, east]],
+                    {
+                        pane: 'pane_LayoutGrid',
+                        color: 'rgba(28,44,59,0.32)',
+                        weight: 1,
+                        opacity: 1,
+                        dashArray: '4,4',
+                        interactive: false
+                    }
+                ));
+                layoutGridLayer.addLayer(L.marker(
+                    [lat, labelLng],
+                    {
+                        pane: 'pane_LayoutGridLabels',
+                        interactive: false,
+                        icon: L.divIcon({
+                            className: '',
+                            html: '<span class="layout-grid-label">' + formatGridCoordinate(lat) + '</span>',
+                            iconSize: [52, 14],
+                            iconAnchor: [0, 7]
+                        })
+                    }
+                ));
+            }
+        }
+        layoutGridLayer.on('add', redrawLayoutGrid);
+        map.on('moveend zoomend resize', redrawLayoutGrid);
         // Toggle this flag to switch ortofoto source from backend config.
         var USE_BACKUP_ORTOFOTO_TILES = true;
         var ORTOFOTO_TILE_URLS = {
@@ -1646,6 +1756,7 @@
         });
         bounds_group.addLayer(layer_Trasplante_21);
         map.addLayer(layer_Trasplante_21);
+        map.addLayer(layoutGridLayer);
         var overlaysTree = [
             {label: 'Arboles', selectAllCheckbox: 'Activar/Desactivar todos', children: [
                 {label: 'Tala', selectAllCheckbox: 'Activar/Desactivar todos', children: [
@@ -1658,7 +1769,7 @@
             ]},
             {label: 'Subdivision 390934', selectAllCheckbox: 'Activar/Desactivar todos', children: [
                 {label: 'Cesion', selectAllCheckbox: 'Activar/Desactivar todos', children: [
-                    {label: '<img src="legend/CesionVia_11.png" /> Cesion via', layer: layer_CesionVia_11},
+                    {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #333;background:#808080;vertical-align:middle;margin-right:4px;"></span> Cesion via', layer: layer_CesionVia_11},
                     {label: '<img src="legend/CesionTriangulo_12.png" /> Cesion triangulo', layer: layer_CesionTriangulo_12},
                     {label: '<img src="legend/CesionEspacioPublico_13.png" /> Cesion espacio publico', layer: layer_CesionEspacioPublico_13},
                     {label: '<img src="legend/CesionProteccionAmbiental_14.png" /> Cesion proteccion ambiental', layer: layer_CesionProteccionAmbiental_14},
@@ -1674,10 +1785,11 @@
             {label: '<img src="legend/AreaaDesafectar_7.png" /> Area a desafectar', layer: layer_AreaaDesafectar_7},
             {label: '<img src="legend/OtrosUsos_5.png" /> Otros usos', layer: layer_OtrosUsos_5},
             {label: '<img src="legend/CaoMonserrate_6.png" /> Cano Monserrate', layer: layer_CaoMonserrate_6},
-            {label: '<img src="legend/EstimacionViaAcceso_4.png" /> Estimacion via acceso', layer: layer_EstimacionViaAcceso_4},
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #333;background:#808080;vertical-align:middle;margin-right:4px;"></span> Estimacion via acceso', layer: layer_EstimacionViaAcceso_4},
             {label: '<img src="legend/PrefactibilidadTrazadoAv34_2.png" /> Prefactibilidad Trazado Av 34', layer: layer_PrefactibilidadTrazadoAv34_2},
             {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #333;background:#fff;vertical-align:middle;margin-right:4px;"></span> Predios UAU 4', layer: layer_PrediosUAU4_1},
             {label: '<img src="legend/Curvasdenivel5m_3.png" /> Curvas de nivel 5m', layer: layer_Curvasdenivel5m_3},
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px dashed #1c2c3b;background:rgba(255,255,255,0.35);vertical-align:middle;margin-right:4px;"></span> Grid', layer: layoutGridLayer},
             {label: "Ortofoto", layer: layer_Reproyectada_1},
             {label: "OpenStreetMap", layer: layer_OpenStreetMap_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
@@ -1736,10 +1848,3 @@
         </script>        
     </body>
 </html>
-
-
-
-
-
-
-
