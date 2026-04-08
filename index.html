@@ -2129,8 +2129,8 @@
         bounds_group.addLayer(layer_BZonaEstableDependiente_4);
         map.addLayer(layoutGridLayer);
         var overlaysTree = [
-            {label: 'Arboles', selectAllCheckbox: 'Activar/Desactivar todos', children: [
-                {label: 'Tala', selectAllCheckbox: 'Activar/Desactivar todos', children: [
+            {label: 'Arboles', collapsed: true, selectAllCheckbox: 'Activar/Desactivar todos', children: [
+                {label: 'Tala', collapsed: true, selectAllCheckbox: 'Activar/Desactivar todos', children: [
                     {label: '<img src="legend/TalaGrueso_19.png" /> Tala grueso', layer: layer_TalaGrueso_19},
                     {label: '<img src="legend/TalaMediano_18.png" /> Tala mediano', layer: layer_TalaMediano_18},
                     {label: '<img src="legend/TalaDelgado_17.png" /> Tala delgado', layer: layer_TalaDelgado_17},
@@ -2138,23 +2138,23 @@
                 {label: '<img src="legend/Conservacion_20.png" /> Conservacion', layer: layer_Conservacion_20},
                 {label: '<img src="legend/Trasplante_21.png" /> Trasplante', layer: layer_Trasplante_21},
             ]},
-            {label: 'Geotecnia', selectAllCheckbox: 'Activar/Desactivar todos', children: [
+            {label: 'Geotecnia', collapsed: true, selectAllCheckbox: 'Activar/Desactivar todos', children: [
                 {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #333;border-radius:50%;background:#5fe8ed;vertical-align:middle;margin-right:4px;"></span> Perforaciones', layer: layer_Perforaciones_1},
                 {label: '<img src="legend/UMI_0.png" /> UMI', layer: layer_UMI_0},
-                {label: 'Zonificacion', selectAllCheckbox: 'Activar/Desactivar todos', children: [
+                {label: 'Zonificacion', collapsed: true, selectAllCheckbox: 'Activar/Desactivar todos', children: [
                     {label: '<img src="legend/BZonaEstableDependiente_4.png" /> B Zona estable dependiente', layer: layer_BZonaEstableDependiente_4},
                     {label: '<img src="legend/CZonaInestableRecuperable_3.png" /> C Zona inestable recuperable', layer: layer_CZonaInestableRecuperable_3},
                     {label: '<img src="legend/DZonaInestableNoUtilizable_2.png" /> D Zona inestable no utilizable', layer: layer_DZonaInestableNoUtilizable_2},
                 ]},
             ]},
-            {label: 'Subdivision 390934', selectAllCheckbox: 'Activar/Desactivar todos', children: [
-                {label: 'Cesion', selectAllCheckbox: 'Activar/Desactivar todos', children: [
+            {label: 'Subdivision 390934', collapsed: true, selectAllCheckbox: 'Activar/Desactivar todos', children: [
+                {label: 'Cesion', collapsed: true, selectAllCheckbox: 'Activar/Desactivar todos', children: [
                     {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #333;background:#808080;vertical-align:middle;margin-right:4px;"></span> Cesion via', layer: layer_CesionVia_11},
                     {label: '<img src="legend/CesionTriangulo_12.png" /> Cesion triangulo', layer: layer_CesionTriangulo_12},
                     {label: '<img src="legend/CesionEspacioPublico_13.png" /> Cesion espacio publico', layer: layer_CesionEspacioPublico_13},
                     {label: '<img src="legend/CesionProteccionAmbiental_14.png" /> Cesion proteccion ambiental', layer: layer_CesionProteccionAmbiental_14},
                 ]},
-                {label: 'Vivienda', selectAllCheckbox: 'Activar/Desactivar todos', children: [
+                {label: 'Vivienda', collapsed: true, selectAllCheckbox: 'Activar/Desactivar todos', children: [
                     {label: '<img src="legend/HuellaVivienda_16.png" /> Huella vivienda', layer: layer_HuellaVivienda_16},
                     {label: '<img src="legend/Etapa1Vivienda_8.png" /> Etapa 1 vivienda', layer: layer_Etapa1Vivienda_8},
                     {label: '<img src="legend/Etapa2Vivienda_9.png" /> Etapa 2 vivienda', layer: layer_Etapa2Vivienda_9},
