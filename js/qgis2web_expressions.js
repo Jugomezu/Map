@@ -754,3 +754,17 @@ function fnc__specialcol_(values, context) {
 function fnc_project_color(values, context) {
     return false;
 };
+
+
+
+function exp_Perforaciones_1rule0_eval_expression(context) {
+    // Exploracion = 'Amenaza UAU4 Otros Usos'
+
+    var feature = context.feature;
+    
+    if (feature.properties) {
+        return (feature.properties['Exploracion']  == 'Amenaza UAU4 Otros Usos');
+    } else {
+        return (feature['Exploracion']  == 'Amenaza UAU4 Otros Usos');
+    }
+}
