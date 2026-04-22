@@ -269,6 +269,7 @@
         <script src="data/PrefactibilidadTrazadoAv34_2.js"></script>
         <script src="data/Curvasdenivel5m_3.js"></script>
         <script src="data/EstimacionViaAcceso_4.js"></script>
+        <script src="data/ExpansionViaAtras_22.js"></script>
         <script src="data/OtrosUsos_5.js"></script>
         <script src="data/CaoMonserrate_6.js"></script>
         <script src="data/AreaaDesafectar_7.js"></script>
@@ -789,6 +790,46 @@
         });
         bounds_group.addLayer(layer_EstimacionViaAcceso_4);
         map.addLayer(layer_EstimacionViaAcceso_4);
+        function pop_ExpansionViaAtras_22(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(String(feature.properties['id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_ExpansionViaAtras_22_0() {
+            return {
+                pane: 'pane_ExpansionViaAtras_22',
+                opacity: 1,
+                color: 'rgba(237,81,43,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ExpansionViaAtras_22');
+        map.getPane('pane_ExpansionViaAtras_22').style.zIndex = 404;
+        map.getPane('pane_ExpansionViaAtras_22').style['mix-blend-mode'] = 'normal';
+        var layer_ExpansionViaAtras_22 = new L.geoJson(json_ExpansionViaAtras_22, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ExpansionViaAtras_22',
+            layerName: 'layer_ExpansionViaAtras_22',
+            pane: 'pane_ExpansionViaAtras_22',
+            onEachFeature: pop_ExpansionViaAtras_22,
+            style: style_ExpansionViaAtras_22_0,
+        });
+        bounds_group.addLayer(layer_ExpansionViaAtras_22);
+        map.addLayer(layer_ExpansionViaAtras_22);
         function pop_OtrosUsos_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -2165,8 +2206,11 @@
             {label: '<img src="legend/AreaaDesafectar_7.png" /> Area a desafectar', layer: layer_AreaaDesafectar_7},
             {label: '<img src="legend/OtrosUsos_5.png" /> Otros usos', layer: layer_OtrosUsos_5},
             {label: '<img src="legend/CaoMonserrate_6.png" /> Cano Monserrate', layer: layer_CaoMonserrate_6},
-            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #333;background:#808080;vertical-align:middle;margin-right:4px;"></span> Estimacion via acceso', layer: layer_EstimacionViaAcceso_4},
-            {label: '<img src="legend/PrefactibilidadTrazadoAv34_2.png" /> Prefactibilidad Trazado Av 34', layer: layer_PrefactibilidadTrazadoAv34_2},
+            {label: 'Vias', collapsed: true, selectAllCheckbox: 'Activar/Desactivar todos', children: [
+                {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #333;background:#808080;vertical-align:middle;margin-right:4px;"></span> Estimacion via acceso', layer: layer_EstimacionViaAcceso_4},
+                {label: '<span style="display:inline-block;width:12px;height:3px;background:#ed512b;vertical-align:middle;margin-right:4px;"></span> Expansion via atras', layer: layer_ExpansionViaAtras_22},
+                {label: '<img src="legend/PrefactibilidadTrazadoAv34_2.png" /> Prefactibilidad Trazado Av 34', layer: layer_PrefactibilidadTrazadoAv34_2},
+            ]},
             {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #333;background:#fff;vertical-align:middle;margin-right:4px;"></span> Predios UAU 4', layer: layer_PrediosUAU4_1},
             {label: '<img src="legend/Curvasdenivel5m_3.png" /> Curvas de nivel 5m', layer: layer_Curvasdenivel5m_3},
             {label: "Ortofoto", layer: layer_Reproyectada_1},
