@@ -327,7 +327,7 @@
         });
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[6.213518720381845,-75.56610133140519],[6.219190167483412,-75.55731877769588]]);
+        });
         window._asomaderaMap = map;
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
@@ -608,6 +608,9 @@
         });
         bounds_group.addLayer(layer_PrediosUAU4_1);
         map.addLayer(layer_PrediosUAU4_1);
+        if (layer_PrediosUAU4_1.getBounds && layer_PrediosUAU4_1.getBounds().isValid()) {
+            map.fitBounds(layer_PrediosUAU4_1.getBounds(), {padding: [24, 24]});
+        }
         function pop_PrefactibilidadTrazadoAv34_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
